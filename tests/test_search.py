@@ -8,19 +8,21 @@ from pages.result import DuckDuckGoResultPage
 from pages.search import DuckDuckGoSearchPage
 
 
-@pytest.mark.parametrize('phrase', ['panda', 'python', 'polar bear'])
-def test_basic_duckduckgo_search(browser, phrase):
+@pytest.mark.parametrize('phrase, suggestion', [('panda', 4), ('python', 2), ('polar bear', 5)])
+def test_basic_duckduckgo_search(browser, phrase, suggestion):
   search_page = DuckDuckGoSearchPage(browser)
   result_page = DuckDuckGoResultPage(browser)
+
   
   # Given the DuckDuckGo home page is displayed
   search_page.load()
 
   # When the user searches for the phrase
-  search_page.search(phrase)
+  search_page.search(phrase, suggestion)
+
 
   # Then the search result query is the phrase
-  assert phrase == result_page.search_input_value()
+  assert phrase in result_page.search_input_value()
   
   # And the search result links pertain to the phrase
   titles = result_page.result_link_titles()
