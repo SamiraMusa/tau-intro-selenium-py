@@ -13,6 +13,7 @@ def test_basic_duckduckgo_search(browser, phrase):
   search_page = DuckDuckGoSearchPage(browser)
   result_page = DuckDuckGoResultPage(browser)
   
+  
   # Given the DuckDuckGo home page is displayed
   search_page.load()
 
@@ -30,3 +31,7 @@ def test_basic_duckduckgo_search(browser, phrase):
   # And the search result title contains the phrase
   # (Putting this assertion last guarantees that the page title will be ready)
   assert phrase in result_page.title()
+
+
+  # And more result page is expanded
+  assert result_page.is_more_result_expanded() == True

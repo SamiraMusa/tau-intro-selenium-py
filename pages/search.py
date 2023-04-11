@@ -16,6 +16,8 @@ class DuckDuckGoSearchPage:
   # Locators
 
   SEARCH_INPUT = (By.ID, 'searchbox_input')
+  SEARCH_BUTTON = (By.CLASS_NAME, 'searchbox_iconWrapper__suWUe')
+  MORE_RESULT = (By.ID, 'rld-1')
 
   # Initializer
 
@@ -29,4 +31,11 @@ class DuckDuckGoSearchPage:
 
   def search(self, phrase):
     search_input = self.browser.find_element(*self.SEARCH_INPUT)
-    search_input.send_keys(phrase + Keys.RETURN)
+    search_input.send_keys(phrase)
+
+    search_button = self.browser.find_element(*self.SEARCH_BUTTON)
+    search_button.click()
+
+    more_result = self.browser.find_element(*self.MORE_RESULT)
+    more_result.click()
+

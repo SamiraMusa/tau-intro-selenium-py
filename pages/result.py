@@ -12,6 +12,9 @@ class DuckDuckGoResultPage:
 
   RESULT_LINKS = (By.CSS_SELECTOR, 'a.result__a')
   SEARCH_INPUT = (By.ID, 'search_form_input')
+  MORE_RESULT = (By.CLASS_NAME, 'js-result-hidden-el')
+  STYLE = 'display: block;'
+  
 
   # Initializer
 
@@ -32,3 +35,8 @@ class DuckDuckGoResultPage:
 
   def title(self):
     return self.browser.title
+  
+  def is_more_result_expanded(self):
+    more_result = self.browser.find_element(*self.MORE_RESULT)
+    style = more_result.get_attribute('style')
+    return style == self.STYLE
